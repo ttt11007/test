@@ -22,13 +22,7 @@ music_url =[
 if 'ind' not in st.session_state:
     st.session_state['ind']=0
 
-st.image(music_url[st.session_state['ind']]['imgurl'])
-
-st.text(music_url[st.session_state['ind']]['text'])
-
-st.audio(music_url[st.session_state['ind']]['musicurl'])
-
-c1,c2=st.columns(2)
+c1,c2=st.columns([1,2])
 
 def lastMusic():
     st.session_state['ind']=(st.session_state['ind']-1) % len(music_url)
@@ -37,7 +31,17 @@ def nextMusic():
     st.session_state['ind']=(st.session_state['ind']+1) % len(music_url)
 
 with c1:
-    st.button('上一首',use_container_width=True,on_click=lastMusic)
+    st.image(music_url[st.session_state['ind']]['imgurl'])
+    
 
 with c2:
-    st.button('下一首',use_container_width=True,on_click=nextMusic)
+    st.subheader(music_url[st.session_state['ind']]['text'])
+
+    st.audio(music_url[st.session_state['ind']]['musicurl'])
+    
+    c11,c22=st.columns(2)
+
+    with c11:
+        st.button('上一首',use_container_width=True,on_click=lastMusic)
+    with c22:
+        st.button('下一首',use_container_width=True,on_click=nextMusic)
